@@ -42,7 +42,6 @@ const DEFAULT_CITY = {
 };
 export default  {
   HOTEL_EVENT_NAME,
-  
   HOTEL_PLACEHOLDER,
   HOTEL_API,
   DATE_WEEK,

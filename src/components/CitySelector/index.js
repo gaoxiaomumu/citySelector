@@ -2,12 +2,10 @@ import React from '@react';
 import request from '../../common/utils/request.js';
 import utils from '../../common/utils/utils.js';
 import './index.scss';
-
 const HOT_CITY = '_HOT_CITY';
 const ALL_CITIES = '_ALL_CITIES';
 const HOT_CITY_GJ = 'HOT_CITY_GJ';
 const ALL_CITIES_GJ = 'ALL_CITIES_GJ';
-import QunarLoading from '../QunarLoading/index';
 
 class CitySelector extends React.Component {
   constructor() {
@@ -409,8 +407,7 @@ class CitySelector extends React.Component {
   render() {
     return (
       <div>
-        {!this.state.isShow && <QunarLoading />}
-        {this.state.isShow && (
+        { (
           <div class="city-container">
             {this.state.showOverseas && (
               <div class="cityTab">
