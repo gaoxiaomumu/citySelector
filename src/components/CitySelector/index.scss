@@ -1,0 +1,257 @@
+
+/**citySelector.wxss**/
+page {
+    height: 100%;
+}
+.city-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #efeff4;
+}
+
+.search-content {
+    height: 88rpx;
+    background-color: #ffffff;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 91;
+    /*border-bottom: 1px solid #e5e5e5;*/
+}
+.input-content {
+    height: 60rpx;
+    background-color: #efeff4;
+    position: absolute;
+    top: 14rpx;
+    left: 20rpx;
+    border-radius: 5px;
+    transition: right ease-in-out 0.3s;
+}
+
+.input-content-before {
+    right:104rpx;
+}
+
+.input-content-after {
+    right:20rpx;
+}
+
+/*.image-search {
+    position: absolute;
+    left: 16rpx;
+    top: 16rpx;
+    width: 28rpx;
+    height: 28rpx;
+}*/
+
+.icon-search {
+    position: absolute;
+    left: 16rpx;
+    top: 16rpx;
+    width: 28rpx;
+    height: 28rpx;
+    line-height: 28rpx;
+}
+
+.icon-search:before {
+    content: '\e082';
+    color: #ccc;
+    font-size: 16px;
+}
+
+.input-view {
+    background-color: #efeff4;
+    left: 50rpx;
+    right: 10rpx;
+    height: 60rpx;
+}
+
+.input-city {
+    width: 100%;
+    height: 100%;
+    font-size: 28rpx;
+}
+
+.cityTab {
+	position:fixed;
+	top:88rpx;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width:100%;
+	height:88rpx;
+	font-size:32rpx;
+	background-color: #ffffff;
+	border-bottom: 1px solid #e5e5e5;
+	color:#616161;
+	line-height:44rpx;
+}
+
+.domestic, .overseas {
+	width:160rpx;
+	height:64rpx;
+	line-height:64rpx;
+	text-align:center;
+	margin:0 16rpx;
+}
+.cityActive {
+	color:#00AFC7;
+	border-bottom: 1px solid #00AFC7;
+}
+
+.relocation:before {
+	content: "\f055";
+	font-size:28rpx;
+	vertical-align: middle;
+}
+
+.cancel {
+    text-align: center;
+    width: 104rpx;
+    position: absolute;
+    line-height: 88rpx;
+    font-size: 30rpx;
+    color: #00bcd4;
+    transition: right ease-in-out 0.3s;
+}
+
+.cancel-before {
+    right: 0;
+}
+
+.cancel-after {
+    right: -104rpx;
+}
+
+.list-content-low {
+    margin-top: 176rpx;
+
+}
+
+.list-content-high {
+	margin-top: 88rpx;
+}
+
+.city-content {
+    background-color: #ffffff;
+    /*height: 90rpx;*/
+}
+.city-search-list {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 90;
+    margin-top: 88rpx;
+    border-bottom: 1px solid #e5e5e5;
+    background-color: rgba(0, 0, 0, .5);
+    width: 100%;
+}
+.search-list-wrapper {
+    background-color: #efeff4;
+    height: 100%;
+
+}
+.city-view {
+    font-size: 28rpx;
+    color: #666666;
+    line-height: 88rpx;
+    padding-left: 40rpx;
+    border-top: 1px solid #e5e5e5;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.city-view .qt-blue {
+    color: #29bcce;
+}
+.city-view-disable {
+    font-size: 24rpx;
+    line-height: 58rpx;
+    color: #999999;
+    background-color: #f0eff5;
+}
+.city-none {
+    font-size: 28rpx;
+    color: #aaaaaa;
+    margin: 20rpx 0;
+    text-align: center;
+}
+
+.hot-city {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+.label-title {
+    color:#333333;
+    font-size: 28rpx;
+    height: 88rpx;
+    line-height: 88rpx;
+}
+.city-wrapper {
+    margin: 0 20rpx;
+}
+.hotCity-content {
+    height: 90rpx;
+    width: 100%;
+}
+
+.hotCity-label {
+    color:#333333;
+    font-size: 28rpx;
+    height: 70rpx;
+    width: 216rpx;
+    margin: 0 10rpx 20rpx 10rpx;
+    display: inline-block;
+    background-color: #ffffff;
+    line-height: 70rpx;
+    text-align: center;
+    border-radius: 3px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.hotCity-label:active, .city-label:active {
+    background-color: #999999;
+}
+.hotCity-label-empty {
+    background-color: #efeff4;
+    width:100%;
+    height: 70rpx;
+    line-height: 70rpx;
+}
+.all-city-hide {
+    display: none;
+}
+.all-city .label-title {
+    padding-left: 20rpx;
+    background-color: #efeff4;
+}
+.all-city .citylist {
+    padding-left: 75rpx;
+    border-top: 1rpx solid #e5e5e5;
+    border-bottom: 1rpx solid #e5e5e5;
+    background-color: #fff;
+}
+.all-city .city-line {
+    padding: 28rpx 0 28rpx 40rpx;
+    font-size: 28rpx;
+    border-bottom: 1rpx solid #e5e5e5;
+}
+// .all-city .city-line:last-child {
+//     // border: none;
+// }
+.city-fail {
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 14px;
+    color: #00bcd4;
+}
