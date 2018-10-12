@@ -43,9 +43,13 @@ class Express extends React.Component {
   render() {
     return (
       <div>
+        <navigator url="/pages/demo/index" hover-class="navigator-hover">
+          <button>demo</button>
+        </navigator>
         <div hover-class="navigator-hover">
           <button onTap={this.citySelect}>城市列表页</button>
         </div>
+
       </div>
     );
   }

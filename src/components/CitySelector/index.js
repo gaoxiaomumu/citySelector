@@ -39,13 +39,13 @@ class CitySelector extends React.Component {
   componentDidMount() {
     const { param } = this.props;
     var self = this;
-   
+
     var data = JSON.parse(param);
     var type = '';
     switch (data.type) {
       case 0:
         type = 'flight';
-       
+
         break;
       case 1:
         type = 'train';
@@ -78,16 +78,21 @@ class CitySelector extends React.Component {
     try {
       var self = this;
 
-      var vHotCities = React.api.getStorageSync(self.state.prefix + HOT_CITY);
-      var allCities = React.api.getStorageSync(self.state.prefix + ALL_CITIES);
+      var vHotCities = [];
+      var allCities = [];
       console.log('all', this.state.activeCity);
+
       if (this.state.activeCity === 'overseas') {
         vHotCities = React.api.getStorageSync(self.state.prefix + HOT_CITY_GJ);
         allCities = React.api.getStorageSync(self.state.prefix + ALL_CITIES_GJ);
+      } else {
+        vHotCities = React.api.getStorageSync(self.state.prefix + HOT_CITY);
+        allCities = React.api.getStorageSync(self.state.prefix + ALL_CITIES);
       }
+      console.log('hot', JSON.stringify(vHotCities));
       var isReqHot = vHotCities && (vHotCities.length || vHotCities['热门城市']);
       var isReqAll = allCities;
-      console.log('all', allCities);
+
       var currentTime = new Date().getTime();
       var time = React.api.getStorageSync(self.state.prefix + HOT_CITY + '_TIME');
       // 汽车票的热门城市经常更新，且出发城市和到达城市的数据不同，故本期汽车票的热门城市数据不读localstorage
@@ -109,8 +114,8 @@ class CitySelector extends React.Component {
   setCities(hotCitiesData, allCitiesData) {
     hotCitiesData = Array.isArray(hotCitiesData) ? hotCitiesData : Object.values(hotCitiesData)[0];
     this.setState({
-      hotCities: hotCitiesData,
-      allCities: allCitiesData
+      hotCities: hotCitiesData
+      // allCities: allCitiesData
     });
     var self = this;
     let hotDataName = self.state.activeCity === 'overseas' ? HOT_CITY_GJ : HOT_CITY;
@@ -365,8 +370,6 @@ class CitySelector extends React.Component {
   }
 
   changeCityToDomestic() {
-    // let newParam = deepEqual(this.state.param);
-    // newParam.cityListService = '/api/hotel/city/en';
     console.log('domestic');
     let self = this;
     this.setState(
@@ -407,7 +410,7 @@ class CitySelector extends React.Component {
   render() {
     return (
       <div>
-        { (
+        {
           <div class="city-container">
             {this.state.showOverseas && (
               <div class="cityTab">
@@ -547,7 +550,7 @@ class CitySelector extends React.Component {
             </div>
             {this.state.isFail && <view class="city-fail">{this.state.failMessage}</view>}
           </div>
-        )}
+        }
       </div>
     );
   }

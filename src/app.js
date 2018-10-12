@@ -2,6 +2,7 @@ import React from '@react';
 import './pages/index/index';
 
 import './pages/citySelector/index';
+import './pages/demo/index';
 
 import './app.less';
 
