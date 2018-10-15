@@ -57,20 +57,20 @@ class CitySelector extends React.Component {
         type = 'hotel';
         break;
     }
-    self.setState({
-      // isShow: false,
-      isFail: false,
-      failMessage: '',
-      param: data,
-      prefix: type.toUpperCase()
-    });
+    // self.setState({
+    //   // isShow: false,
+    //   isFail: false,
+    //   failMessage: '',
+    //   param: data,
+    //   prefix: type.toUpperCase()
+    // });
     if (type === 'hotel') {
       self.setState({
         showOverseas: true
       });
     }
-    // self._qWatcher = new QWatcher(WATCHER.SUGGEST.PV);
-    self.readHotAndAllCity();
+    // // self._qWatcher = new QWatcher(WATCHER.SUGGEST.PV);
+    // self.readHotAndAllCity();
   }
 
   readHotAndAllCity() {
@@ -89,7 +89,7 @@ class CitySelector extends React.Component {
         vHotCities = React.api.getStorageSync(self.state.prefix + HOT_CITY);
         allCities = React.api.getStorageSync(self.state.prefix + ALL_CITIES);
       }
-      console.log('hot', JSON.stringify(vHotCities));
+
       var isReqHot = vHotCities && (vHotCities.length || vHotCities['热门城市']);
       var isReqAll = allCities;
 
@@ -219,155 +219,172 @@ class CitySelector extends React.Component {
     });
   }
 
-  bindFocus() {
-    this.setState({
-      isFocus: true
-    });
-  }
+  // bindFocus() {
+  //   this.setState({
+  //     isFocus: true
+  //   });
+  // }
 
   bindKeyInput(e) {
     let self = this;
-    return utils.debounce(function(e, self) {
-      var word = e.detail.value.replace(/\s/g, '');
-      console.log(word);
-      if (word.length > 0) {
-        self.setState({
-          isFocus: true,
-          isSearch: true,
-          inputValue: word,
-          noResult: false
-        });
-      } else {
-        self.setState({
-          isSearch: false,
-          inputValue: word,
-          noResult: false,
-          cities: []
-        });
-        return;
-      }
-
-      var updateCities = function(flag, data) {
-        if (flag && data && data.length) {
-          self.setState({
-            cities: data
-          });
-        } else {
-          self.setState({
-            cities: [],
-            noResult: true
-          });
-        }
-      };
-
-      var _cityParam = self.state.param.citySuggestParam || {};
-      var _cityData = self.state.param.citySuggestData || {};
-      var _param = { q: word, keyword: word, queryValue: word, city: word };
-      var _data = { q: word, keyword: word, b: { queryValue: word }, city: word };
-      Object.keys(_cityParam).forEach(function(k) {
-        _param[k] = self.state.param.citySuggestParam[k];
-      });
-      Object.keys(_cityData).forEach(function(k) {
-        _data[k] = self.state.param.citySuggestData[k];
-      });
-      var reqData = {
-        host: self.state.param.citySuggestHost || 'https://wxapp.qunar.com',
-        service: self.state.param.citySuggestService,
-        param: _param,
-        data: _data,
-        success: function(res) {
-          switch (self.state.prefix) {
-            case 'FLIGHT': {
-              updateCities(res.data.result && res.data.result.length, res.data.result);
-              break;
-            }
-            case 'TRAIN': {
-              updateCities(
-                res.data.dataMap.result && res.data.dataMap.result.length,
-                res.data.dataMap.result
-              );
-              break;
-            }
-            case 'BUS': {
-              updateCities(
-                res.data.suggestList && res.data.suggestList.length,
-                res.data.suggestList
-              );
-              break;
-            }
-            case 'HOTEL': {
-              var hotelData = (res.data && res.data.result) || [];
-              var newData = [];
-
-              if (res.data && hotelData.length > 0) {
-                var key = res.data.userInput,
-                  keyLen = key.length;
-                hotelData.forEach(function(item, index) {
-                  var text = item.display,
-                    pos = text.toLowerCase().indexOf(key.toLowerCase());
-                  console.log('pos', pos);
-                  if (pos > -1) {
-                    //截取高亮展示文本，重组数据结构
-                    newData.push({
-                      key: item.key,
-                      cityUrl: item.cityUrl,
-                      text: [
-                        {
-                          text: text.substr(0, pos),
-                          isHL: false
-                        },
-                        {
-                          text: text.substr(pos, keyLen),
-                          isHL: true
-                        },
-                        {
-                          text: text.substr(pos + keyLen),
-                          isHL: false
-                        }
-                      ]
-                    });
-                  } else {
-                    newData.push({
-                      key: item.key,
-                      cityUrl: item.cityUrl,
-                      text: [
-                        {
-                          text,
-                          isHL: false
-                        }
-                      ]
-                    });
-                  }
-                });
-              }
-              updateCities(res.data, newData);
-              break;
-            }
-          }
-        }
-      };
-
-      if (self.state.prefix === 'BUS') {
-        reqData.data.c = requester.getParamC();
-      }
-      request(reqData);
-    }, 300)(e, self);
-  }
-
-  blur(e) {
     var word = e.detail.value.replace(/\s/g, '');
+    console.log(word);
     if (word.length > 0) {
-      this.setState({
-        isFocus: false
-      });
-    } else {
-      this.setState({
-        isFocus: false,
-        isSearch: false,
+      self.setState({
+        isFocus: true,
+        isSearch: true,
+        inputValue: word,
         noResult: false
       });
+    } else {
+      self.setState({
+        isSearch: false,
+        inputValue: word,
+        noResult: false,
+        cities: []
+      });
     }
+    // return utils.debounce(function(e, self) {
+    //   var word = e.detail.value.replace(/\s/g, '');
+    //   console.log(word);
+    //   if (word.length > 0) {
+    //     self.setState({
+    //       isFocus: true,
+    //       isSearch: true,
+    //       inputValue: word,
+    //       noResult: false
+    //     });
+    //   } else {
+    //     self.setState({
+    //       isSearch: false,
+    //       inputValue: word,
+    //       noResult: false,
+    //       cities: []
+    //     });
+    //     return;
+    //   }
+
+    //   var updateCities = function(flag, data) {
+    //     if (flag && data && data.length) {
+    //       self.setState({
+    //         cities: data
+    //       });
+    //     } else {
+    //       self.setState({
+    //         cities: [],
+    //         noResult: true
+    //       });
+    //     }
+    //   };
+
+    //   var _cityParam = self.state.param.citySuggestParam || {};
+    //   var _cityData = self.state.param.citySuggestData || {};
+    //   var _param = { q: word, keyword: word, queryValue: word, city: word };
+    //   var _data = { q: word, keyword: word, b: { queryValue: word }, city: word };
+    //   Object.keys(_cityParam).forEach(function(k) {
+    //     _param[k] = self.state.param.citySuggestParam[k];
+    //   });
+    //   Object.keys(_cityData).forEach(function(k) {
+    //     _data[k] = self.state.param.citySuggestData[k];
+    //   });
+    //   var reqData = {
+    //     host: self.state.param.citySuggestHost || 'https://wxapp.qunar.com',
+    //     service: self.state.param.citySuggestService,
+    //     param: _param,
+    //     data: _data,
+    //     success: function(res) {
+    //       switch (self.state.prefix) {
+    //         case 'FLIGHT': {
+    //           updateCities(res.data.result && res.data.result.length, res.data.result);
+    //           break;
+    //         }
+    //         case 'TRAIN': {
+    //           updateCities(
+    //             res.data.dataMap.result && res.data.dataMap.result.length,
+    //             res.data.dataMap.result
+    //           );
+    //           break;
+    //         }
+    //         case 'BUS': {
+    //           updateCities(
+    //             res.data.suggestList && res.data.suggestList.length,
+    //             res.data.suggestList
+    //           );
+    //           break;
+    //         }
+    //         case 'HOTEL': {
+    //           var hotelData = (res.data && res.data.result) || [];
+    //           var newData = [];
+
+    //           if (res.data && hotelData.length > 0) {
+    //             var key = res.data.userInput,
+    //               keyLen = key.length;
+    //             hotelData.forEach(function(item, index) {
+    //               var text = item.display,
+    //                 pos = text.toLowerCase().indexOf(key.toLowerCase());
+    //               console.log('pos', pos);
+    //               if (pos > -1) {
+    //                 //截取高亮展示文本，重组数据结构
+    //                 newData.push({
+    //                   key: item.key,
+    //                   cityUrl: item.cityUrl,
+    //                   text: [
+    //                     {
+    //                       text: text.substr(0, pos),
+    //                       isHL: false
+    //                     },
+    //                     {
+    //                       text: text.substr(pos, keyLen),
+    //                       isHL: true
+    //                     },
+    //                     {
+    //                       text: text.substr(pos + keyLen),
+    //                       isHL: false
+    //                     }
+    //                   ]
+    //                 });
+    //               } else {
+    //                 newData.push({
+    //                   key: item.key,
+    //                   cityUrl: item.cityUrl,
+    //                   text: [
+    //                     {
+    //                       text,
+    //                       isHL: false
+    //                     }
+    //                   ]
+    //                 });
+    //               }
+    //             });
+    //           }
+    //           updateCities(res.data, newData);
+    //           break;
+    //         }
+    //       }
+    //     }
+    //   };
+
+    //   if (self.state.prefix === 'BUS') {
+    //     reqData.data.c = requester.getParamC();
+    //   }
+    //   request(reqData);
+    // }, 300)(e, self);
   }
+
+  // blur(e) {
+  //   var word = e.detail.value.replace(/\s/g, '');
+  //   if (word.length > 0) {
+  //     this.setState({
+  //       isFocus: false
+  //     });
+  //   } else {
+  //     this.setState({
+  //       isFocus: false,
+  //       isSearch: false,
+  //       noResult: false
+  //     });
+  //   }
+  // }
 
   changeCityToDomestic() {
     console.log('domestic');
@@ -410,9 +427,15 @@ class CitySelector extends React.Component {
   render() {
     return (
       <div>
+        <input
+          class="input-city"
+          value={this.state.inputValue}
+          placeholder-style="color:#b2b2b2;"
+          onInput={this.bindKeyInput}
+        />
         {
           <div class="city-container">
-            {this.state.showOverseas && (
+            {(
               <div class="cityTab">
                 <view
                   class={'domestic ' + (this.state.activeCity === 'domestic' ? 'cityActive' : '')}

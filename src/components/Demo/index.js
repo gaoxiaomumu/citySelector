@@ -1,22 +1,24 @@
 import React from '@react';
 
-// 事件
-class Data extends React.Component {
+class Demo extends React.Component {
   constructor() {
     super();
     this.state = {
       activeCity: 'domestic',
-      data: [1, 1, 1, 1, 1, 1]
+      inputValue: ''
     };
   }
 
   // 如何隐藏这个loading
   componentDidMount() {
     /* eslint-disable */
-    console.log('props', this.props);
+    console.log('state', this.state);
+    debugger
     this.setState({
-      value: 1
-    })
+      value: '12'
+     })
+     console.log('state', this.state);
+    debugger
   }
 
   changeCityToDomestic() {
@@ -82,7 +84,7 @@ class Data extends React.Component {
           class="input-city"
           value={this.state.inputValue}
           placeholder-style="color:#b2b2b2;"
-          onInput={this.bindKeyInput}
+          onInput={this.bindKeyInput.bind(this)}
         />
         <div class="container">
           <div class="cityTab">
@@ -104,4 +106,5 @@ class Data extends React.Component {
     );
   }
 }
-export default Data;
+
+export default Demo;

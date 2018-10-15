@@ -3,7 +3,7 @@ import './pages/index/index';
 
 import './pages/citySelector/index';
 import './pages/demo/index';
-
+import './pages/demo2/index';
 import './app.less';
 
 class Demo extends React.Component {
